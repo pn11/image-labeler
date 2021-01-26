@@ -2,29 +2,40 @@
   <div class="load_button">
     <button v-on:click="selectDirectory">{{ buttonLabel }}</button>
     <p>Current Directory: {{ directoryPath }}</p>
+    <!--
     <p>Images:</p>
     <ul id="images">
       <li v-for="image in images" :key="image">
         {{ image }}
       </li>
     </ul>
+    -->
   </div>
 </template>
 
 <script lang="ts">
 import fs from "fs";
 import { defineComponent } from "vue";
+import { inject } from "vue";
 import { remote } from "electron";
 import isImage from "is-image";
 
 export default defineComponent({
   name: "LoadButton",
+  setup() {
+    // 依存性の注入 https://v3.vuejs.org/guide/composition-api-provide-inject.html#adding-reactivity
+    const directoryPath = inject("directoryPath", "");
+    const currentImagePath = inject("currentImagePath", "");
+    return {
+      directoryPath,
+      currentImagePath,
+    };
+  },
   props: {
     buttonLabel: String,
   },
   data() {
     return {
-      directoryPath: "",
       images: [""],
       imagesStr: "",
     };
@@ -35,10 +46,6 @@ export default defineComponent({
       // http://m-miya.blog.jp/archives/1070822761.html
       remote.dialog
         .showOpenDialog(remote.getCurrentWindow(), {
-          //filters: [
-          //  { name: "Text File", extensions: ["txt"] },
-          //  { name: "All Files", extensions: ["*"] },
-          //],
           properties: ["openDirectory"],
         })
         .then((result) => {
@@ -63,6 +70,7 @@ export default defineComponent({
           .map(({ name }) => name)
           .filter((name) => isImage(name));
         this.imagesStr = this.images.join("\n");
+        this.currentImagePath = this.images[0];
       });
     },
   },
