@@ -35,6 +35,7 @@ async function createWindow() {
   }
   
   // Menu and keyboard shortcuts
+  /*
   const menu = new Menu()
   menu.append(new MenuItem({
     label: 'Electron',
@@ -42,9 +43,12 @@ async function createWindow() {
       role: 'help',
       accelerator: process.platform === 'darwin' ? 'Alt+Cmd+I' : 'Alt+Shift+I',
       click: () => {shell.openExternal('https://github.com/pn11/image-labeler')}
-    }]
+    },
+    {role: 'quit'}
+  ]
   }))
   Menu.setApplicationMenu(menu)
+  */
 
 }
 
