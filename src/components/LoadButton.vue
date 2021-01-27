@@ -26,9 +26,11 @@ export default defineComponent({
     // 依存性の注入 https://v3.vuejs.org/guide/composition-api-provide-inject.html#adding-reactivity
     const directoryPath = inject("directoryPath", "");
     const currentImagePath = inject("currentImagePath", "");
+    const imageList = inject("imageList", [""]);
     return {
       directoryPath,
       currentImagePath,
+      imageList
     };
   },
   props: {
@@ -36,7 +38,6 @@ export default defineComponent({
   },
   data() {
     return {
-      images: [""],
       imagesStr: "",
     };
   },
@@ -65,12 +66,12 @@ export default defineComponent({
           console.log(err);
           return;
         }
-        this.images = dirents
+        this.imageList = dirents
           .filter((dirent) => dirent.isFile())
           .map(({ name }) => name)
           .filter((name) => isImage(name));
-        this.imagesStr = this.images.join("\n");
-        this.currentImagePath = this.images[0];
+        this.imagesStr = this.imageList.join("\n");
+        this.currentImagePath = this.imageList[0];
       });
     },
   },

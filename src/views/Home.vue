@@ -28,8 +28,12 @@ export default defineComponent({
     // 依存性の注入 https://v3.vuejs.org/guide/composition-api-provide-inject.html#adding-reactivity
     const directoryPath = ref("")
     const currentImagePath = ref("")
+    const currentImageIdx = ref(0)
+    const imageList = ref([""])
     provide("directoryPath", directoryPath)
     provide("currentImagePath", currentImagePath)
+    provide("currentImageIdx", currentImageIdx)
+    provide("imageList", imageList)
   }
 });
 </script>

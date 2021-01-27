@@ -15,9 +15,13 @@ export default defineComponent({
     // 依存性の注入 https://v3.vuejs.org/guide/composition-api-provide-inject.html#adding-reactivity
     const directoryPath = inject("directoryPath", "");
     const currentImagePath = inject("currentImagePath", "");
+    const currentImageIdx = inject("currentImageIdx", 0);
+    const imageList = inject("imageList", [""]);
     return {
       directoryPath,
       currentImagePath,
+      currentImageIdx,
+      imageList
     };
   },
   created() {
@@ -33,16 +37,24 @@ export default defineComponent({
   },
   data() {
     return {
-      images: [""],
-      imagesStr: "",
     };
   },
   methods: {
     nextImage() {
-      console.log("next");
+      if (this.currentImageIdx < this.imageList.length - 1){
+        this.currentImageIdx += 1
+      }
+      else {
+        this.currentImageIdx = 0
+      }
     },
     previousImage() {
-      console.log("previous");
+      if (this.currentImageIdx > 0 ){
+        this.currentImageIdx -= 1
+      }
+      else {
+        this.currentImageIdx = this.imageList.length - 1
+      }
     },
     keyListener(event: KeyboardEvent) {
       // console.log(event.key)
@@ -51,10 +63,15 @@ export default defineComponent({
       }
       if (event.key === "ArrowRight") {
         this.previousImage()
-      }      
+      }    
+      console.log(this.currentImageIdx)  
     }
   },
-  watch: {},
+  watch: {
+    currentImageIdx(){
+      this.currentImagePath = this.imageList[this.currentImageIdx]
+    }
+  },
 });
 </script>
 
