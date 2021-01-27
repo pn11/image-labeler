@@ -1,6 +1,6 @@
 "use strict";
 
-import { app, protocol, BrowserWindow } from "electron";
+import { app, protocol, BrowserWindow, Menu, MenuItem, shell} from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
 const isDevelopment = process.env.NODE_ENV !== "production";
@@ -33,6 +33,19 @@ async function createWindow() {
     // Load the index.html when not in development
     win.loadURL("app://./index.html");
   }
+  
+  // Menu and keyboard shortcuts
+  const menu = new Menu()
+  menu.append(new MenuItem({
+    label: 'Electron',
+    submenu: [{
+      role: 'help',
+      accelerator: process.platform === 'darwin' ? 'Alt+Cmd+I' : 'Alt+Shift+I',
+      click: () => {shell.openExternal('https://github.com/pn11/image-labeler')}
+    }]
+  }))
+  Menu.setApplicationMenu(menu)
+
 }
 
 // Quit when all windows are closed.
