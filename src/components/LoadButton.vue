@@ -2,13 +2,23 @@
   <div class="load_button">
     <button v-on:click="selectDirectory">{{ buttonLabel }}</button>
     <p>Current Directory: {{ directoryPath }}</p>
-    <!--
     <p>Images:</p>
     <ul id="images">
       <li v-for="image in images" :key="image">
         {{ image }}
       </li>
     </ul>
+    <!-- <b-button v-b-toggle.sidebar-right>Toggle Sidebar</b-button> -->
+    <!--
+        <b-sidebar id="sidebar-right" title="Sidebar" right shadow>
+      <div class="px-3 py-2">
+        <p>
+          Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+          in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+        </p>
+        <b-img src="https://picsum.photos/500/500/?image=54" fluid thumbnail></b-img>
+      </div>
+    </b-sidebar>
     -->
   </div>
 </template>
@@ -19,6 +29,9 @@ import { defineComponent } from "vue";
 import { inject } from "vue";
 import { remote } from "electron";
 import isImage from "is-image";
+
+//import 'bootstrap/dist/css/bootstrap.css' // add
+//import 'bootstrap-vue/dist/bootstrap-vue.css' // add
 
 export default defineComponent({
   name: "LoadButton",
