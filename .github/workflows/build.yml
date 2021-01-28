@@ -24,15 +24,15 @@ jobs:
       run: yarn run electron:build
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: check
-      run: ls
+    - name: check products
+      run: ls dist_electron
     - name: create release
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
         draft: true
         files: |
-          dist/*.dmg
+          dist_electron/*.dmg
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -52,14 +52,14 @@ jobs:
       run: yarn run electron:build
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: check
-      run: ls
+    - name: check products
+      run: ls dist_electron
     - name: create release
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
         draft: true
         files: |
-          dist/*.exe
+          dist_electron/*.exe
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
