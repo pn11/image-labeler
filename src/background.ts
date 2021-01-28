@@ -35,7 +35,6 @@ async function createWindow() {
   }
   
   // Menu and keyboard shortcuts
-  /*
   const menu = new Menu()
   menu.append(new MenuItem({
     label: 'Electron',
@@ -48,7 +47,6 @@ async function createWindow() {
   ]
   }))
   Menu.setApplicationMenu(menu)
-  */
 
 }
 
