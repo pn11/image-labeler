@@ -1,0 +1,57 @@
+# cf. https://qiita.com/jrsyo/items/76e476aa25bf4f8f8e79
+name: Build and Release
+on:
+  push:
+    tags:
+    # "v" で始まる Tag 名の push だけをトリガーの対象にします (e.g., "v0.0.2")
+    - 'v*'
+    branches:
+      - master
+
+jobs:
+  build_on_mac:
+    runs-on: macos-latest
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@master
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: Install yarn
+      run: npm install -g yarn
+    - name: Install Dependencies
+      run: yarn install
+    - name: Build
+      run: yarn run electron:build
+    - name: create release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        draft: true
+        files: |
+          dist/*.dmg
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build_on_win:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: Install yarn
+      run: npm install -g yarn
+    - name: Build
+      run: yarn run electron:build
+    - name: create release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        draft: true
+        files: |
+          dist/*.exe
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
