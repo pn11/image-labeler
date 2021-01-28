@@ -81,10 +81,10 @@ export default defineComponent({
     },
     keyListener(event: KeyboardEvent) {
       // console.log(event.key)
-      if (event.key == "ArrowLeft") {
+      if (event.key == "ArrowRight") {
         this.nextImage()
       }
-      if (event.key == "ArrowRight") {
+      if (event.key == "ArrowLeft") {
         this.previousImage()
       }
       const maxShortcutId = Math.min(this.dirList.length, 9);
