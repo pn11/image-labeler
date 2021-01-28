@@ -2,7 +2,7 @@
   <div class="home">
     <LoadButton buttonLabel="Select Directory"/>
     <ImageViewer/>
-    <ControlButtons nextLabel="<" previousLabel=">"/>
+    <ControlButtons nextLabel=">" previousLabel="<"/>
   </div>
 </template>
 
@@ -30,10 +30,12 @@ export default defineComponent({
     const currentImagePath = ref("")
     const currentImageIdx = ref(0)
     const imageList = ref([""])
+    const dirList = ref([""])
     provide("directoryPath", directoryPath)
     provide("currentImagePath", currentImagePath)
     provide("currentImageIdx", currentImageIdx)
     provide("imageList", imageList)
+    provide("dirList", dirList)
   }
 });
 </script>

@@ -1,15 +1,8 @@
 <template>
   <div class="load_button">
     <button v-on:click="selectDirectory">{{ buttonLabel }}</button>
-    <p>Current Directory: {{ directoryPath }}</p>
-    <!--
-    <p>Images:</p>
-    <ul id="images">
-      <li v-for="image in images" :key="image">
-        {{ image }}
-      </li>
-    </ul>
-    -->
+    <p></p>
+    <!-- <p>Current Directory: {{ directoryPath }}</p> -->
   </div>
 </template>
 
@@ -27,10 +20,12 @@ export default defineComponent({
     const directoryPath = inject("directoryPath", "");
     const currentImagePath = inject("currentImagePath", "");
     const imageList = inject("imageList", [""]);
+    const dirList = inject("dirList", [""]);
     return {
       directoryPath,
       currentImagePath,
-      imageList
+      imageList,
+      dirList
     };
   },
   props: {
@@ -43,6 +38,7 @@ export default defineComponent({
   },
   methods: {
     selectDirectory() {
+      console.log(this.currentImagePath)
       // https://www.electronjs.org/docs/api/dialog
       // http://m-miya.blog.jp/archives/1070822761.html
       remote.dialog
@@ -72,6 +68,10 @@ export default defineComponent({
           .filter((name) => isImage(name));
         this.imagesStr = this.imageList.join("\n");
         this.currentImagePath = this.imageList[0];
+
+        this.dirList = dirents
+          .filter((dirent) => dirent.isDirectory())
+          .map(({ name }) => name);
       });
     },
   },

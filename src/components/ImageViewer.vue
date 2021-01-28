@@ -1,7 +1,10 @@
 <template>
-  <div class="image_viewer">
+  <div v-if="currentImagePath == ''"  class="image_viewer">
+    <img class="no_image" width="360" src="@/assets/NO_IMAGE.png"/>
+  </div>
+  <div v-else class="image_viewer">
     <!-- <img :src=fullPath /> -->
-    <img :src="base64" />
+    <img width="360" :src="base64" />
     <p>{{ currentImagePath }}</p>
   </div>
 </template>
@@ -31,6 +34,14 @@ export default defineComponent({
   methods: {},
   watch: {},
   computed: {
+    displayImage (): boolean {
+      if (this.currentImagePath == ""){
+        return true
+      }
+      else {
+        return false
+      }
+    },
     fullPath(): string {
       //return "file://" + this.directoryPath + "/" + this.currentImagePath;
       return this.directoryPath + "/" + this.currentImagePath;
@@ -68,5 +79,9 @@ li {
 }
 a {
   color: #42b983;
+}
+img {
+  max-width: 80%;
+  height: auto;
 }
 </style>

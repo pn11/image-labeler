@@ -1,5 +1,7 @@
 # image-labeler
 
+An image labeling app built with Electron and Vue3.
+
 ## Debug
 
 ```sh
