@@ -24,6 +24,8 @@ jobs:
       run: yarn run electron:build
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: check
+      run: ls
     - name: create release
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
@@ -50,6 +52,8 @@ jobs:
       run: yarn run electron:build
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: check
+      run: ls
     - name: create release
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
